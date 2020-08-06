@@ -1,0 +1,22 @@
+{
+    "name": "orm-ts",
+    "version": "0.1.0",
+    "description": "ORM Data mapper & Active record",
+    "main": "dist/index.js",
+    "exports": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Adrian Schubek",
+    "license": "MIT",
+    "dependencies": {
+        "inflected": "^2.0.4",
+        "mysql": "^2.18.1"
+    },
+    "devDependencies": {
+        "@types/mysql": "^2.15.15",
+        "@types/node": "^14.0.27",
+        "prettier": "2.0.5"
+    }
+}

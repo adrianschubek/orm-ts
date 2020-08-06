@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "ES2020",
+        "moduleResolution": "node",
+        "sourceMap": false,
+        "esModuleInterop": true,
+        "rootDir": "src",
+        "outDir": "dist",
+        "declaration": true,
+        "watch": true,
+        "lib": [
+            "es2020"
+        ]
+    },
+    "compileOnSave": true,
+    "include": [
+        "src/index.ts"
+    ],
+    "exclude": [
+        "dist",
+        "node_modules",
+        "tests"
+    ]
+}
