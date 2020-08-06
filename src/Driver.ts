@@ -1,5 +1,5 @@
 import mysql, { FieldInfo, MysqlError } from "mysql";
-import { Processor, MySqlProcessor } from "./Processor";
+import { MySqlProcessor, Processor } from "./Processor";
 
 export abstract class Driver {
     public grammar?: Processor;

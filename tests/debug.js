@@ -1,4 +1,4 @@
-const {Model, Mapper, QueryBuilder, MySqlDriver, MySqlGrammar} = require("../dist");
+const { Model, Mapper, QueryBuilder, MySqlDriver } = require("../dist");
 
 const main = (async () => {
 
@@ -14,12 +14,12 @@ const main = (async () => {
 
     let builder = QueryBuilder
         .from("books")
-        .where({name: 6});
+        .where({ name: 6 });
 
     console.log(">> " + builder.sql());
-    return;
-    let x = await builder.get();
-    x.forEach(value => console.log(Object.assign({}, value)));
+
+    // let x = await builder.get();
+    // x.forEach(value => console.log(Object.assign({}, value)));
 
     await driver.disconnect();
 
