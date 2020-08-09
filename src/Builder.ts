@@ -2,14 +2,29 @@ import { Driver } from "./Driver";
 import { Processor, QueryType } from "./Processor";
 
 export interface Query {
+    type?: QueryType;
     table?: string;
     columns?: string[];
-    joins?: string[];
+    joins?: JoinQuery[];
     orders?: string[];
+    groupbys?: string[];
+    having?: string[];
     wheres?: string[];
     unions?: string[];
     distinct?: boolean;
-    type?: QueryType;
+    limit?: string[];
+    offset?: string[];
+}
+
+export interface JoinQuery {
+    otherTable: string,
+    localColumn: string,
+    operator: string
+    otherColumn: string
+}
+
+export function select(...attrs: string[]): QueryBuilder {
+    return new QueryBuilder().select(...attrs)
 }
 
 export class QueryBuilder {
@@ -18,17 +33,21 @@ export class QueryBuilder {
     protected localProcessor: Processor;
 
     protected query: Query = {
+        type: QueryType.SELECT,
         table: "",
         columns: ["*"],
         joins: [],
         wheres: [],
         orders: [],
+        groupbys: [],
+        having: [],
         unions: [],
         distinct: false,
-        type: QueryType.SELECT
+        limit: [],
+        offset: [],
     }
 
-    constructor(query: Query) {
+    constructor(query?: Query) {
         this.query = { ...this.query, ...query }
     }
 
@@ -36,12 +55,12 @@ export class QueryBuilder {
         this.defaultCon = driver;
     }
 
-    static from(table: string): QueryBuilder {
+    static use(table: string): QueryBuilder {
         return new QueryBuilder({ table });
     }
 
-    protected static newSubQuery() {
-
+    protected static newSubQuery(): Query {
+        return { type: QueryType.SUBQUERY }
     }
 
     useProcessor(processor: Processor) {
@@ -51,6 +70,11 @@ export class QueryBuilder {
     select(...attrs: string[]): this {
         this.query.columns = attrs;
         return this;
+    }
+
+    from(table: string): this {
+        this.query.table = table
+        return this
     }
 
     distinct(value: boolean = true): this {
@@ -71,6 +95,11 @@ export class QueryBuilder {
 
     whereNotIn(column: string, values: any[]): this {
         return this;
+    }
+
+    join(otherTable: string, localColumn: string, operator: string = "=", otherColumn: string): this {
+        this.query.joins.push({ otherTable, localColumn, operator, otherColumn })
+        return this
     }
 
     insert() {
