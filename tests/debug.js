@@ -1,7 +1,6 @@
-const { Model, Mapper, QueryBuilder, MySqlDriver, select } = require("../dist");
+const { Model, Mapper, QueryBuilder, MySqlDriver } = require("../dist");
 
 (async () => {
-
     const driver = new MySqlDriver({
         host: "localhost",
         user: "root",
@@ -13,18 +12,20 @@ const { Model, Mapper, QueryBuilder, MySqlDriver, select } = require("../dist");
     QueryBuilder.useDriver(driver);
 
     let builder = QueryBuilder.use("books")
-        .where({ name: 6 });
+        .select("name", "price")
+        .where("name", "<>", "")
+        .andWhere({ price: 599 })
 
-    let builder2 = select("id", "name")
-        .from("books")
+    // let builder = select("books.id", "name", "price")
+    //     .from("books")
+    //     .where({ name: "test" })
 
-    console.log(">> " + builder2.sql());
+    console.log(">> " + builder.sql());
 
-    // let x = await builder.get();
-    // x.forEach(value => console.log(Object.assign({}, value)));
+    let x = await builder.fetch();
+    x.forEach(value => console.log(Object.assign({}, value)));
 
     await driver.disconnect();
-
 })();
 //
 // class User {

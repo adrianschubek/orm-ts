@@ -1,4 +1,9 @@
-import {Driver} from "./Driver";
+/*
+ * Copyright (c) 2020. Adrian Schubek
+ * https://adriansoftware.de
+ */
+
+import { Driver } from "./Driver";
 
 export class Model {
     private static adapter: Driver;

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2020. Adrian Schubek
+ * https://adriansoftware.de
+ */
+
 import mysql, { FieldInfo, MysqlError } from "mysql";
 import { MySqlProcessor, Processor } from "./Processor";
 
