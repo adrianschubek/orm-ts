@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Adrian Schubek
+ * Copyright (c) 2021. Adrian Schubek
  * https://adriansoftware.de
  */
 
@@ -28,20 +28,30 @@ export class ArrayDriver implements Driver {
     }
 
     query(query: string, parameters?: []): Promise<[]> {
-        throw "rawQuery not supported in ArrayAdapter";
+        throw new Error("query not supported in ArrayAdapter");
     }
 }
 
 export class MySqlDriver extends Driver {
     protected connection: mysql.Connection;
 
-    constructor({ host, user, password, database }: { host: string, user: string, password: string, database: string }) {
+    constructor({
+                    host,
+                    user,
+                    password,
+                    database
+                }: { host: string, user: string, password: string, database: string }) {
         super();
         this.connection = mysql.createConnection({ host, user, password, database });
         this.grammar = new MySqlProcessor()
     }
 
-    static create({ host, user, password, database }: { host: string, user: string, password: string, database: string }): MySqlDriver {
+    static create({
+                      host,
+                      user,
+                      password,
+                      database
+                  }: { host: string, user: string, password: string, database: string }): MySqlDriver {
         return new MySqlDriver({ host, user, password, database });
     }
 

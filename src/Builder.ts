@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Adrian Schubek
+ * Copyright (c) 2021. Adrian Schubek
  * https://adriansoftware.de
  */
 
@@ -52,8 +52,8 @@ export function select(...attrs: string[]): QueryBuilder {
     return new QueryBuilder().select(...attrs)
 }
 
-export function use(table: string) {
-    
+export function use(table: string): QueryBuilder {
+    return new QueryBuilder({ table })
 }
 
 export class QueryBuilder {
